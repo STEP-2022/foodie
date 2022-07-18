@@ -1,29 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "../styles/textInputStyles.css";
+import "../styles/commonButtonStyles.css";
 
-export default class TextInput extends React.Component {
+export default class CommonButton extends React.Component {
   static propTypes = {
     type: PropTypes.string,
     className: PropTypes.string,
-    placeholder: PropTypes.string,
     value: PropTypes.string,
-    onChange: PropTypes.func
+    onClick: PropTypes.func
   };
 
   constructor() {
     super();
   }
 
+  //Pass primary class for PrimaryButton Styles
   render() {
     return (
-      <input
+      <button
         type={this.props.type}
         className={this.props.className}
-        placeholder={this.props.placeholder}
-        value={this.props.value}
-        onChange={event => this.props.onChange(event)}
-      />
+        onClick={this.props.onClick}
+      >
+        {this.props.value}
+      </button>
     );
   }
 }
