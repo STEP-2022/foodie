@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import RestaurantListPage from "./pages/RestaurantListPage";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
-  return <RestaurantListPage />;
+  return <OrdersPage id="66330" />;
 }
 
 export default App;
