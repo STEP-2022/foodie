@@ -11,9 +11,9 @@ export default class TextInput extends React.Component {
     onChange: PropTypes.func
   };
 
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   render() {
     return (

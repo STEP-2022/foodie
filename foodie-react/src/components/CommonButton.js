@@ -10,9 +10,9 @@ export default class CommonButton extends React.Component {
     onClick: PropTypes.func
   };
 
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   //Pass primary class for PrimaryButton Styles
   render() {

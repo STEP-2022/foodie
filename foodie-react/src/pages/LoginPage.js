@@ -19,7 +19,7 @@ export default class LoginPage extends React.Component {
         <div className="login-background"></div>
         <div className="login-form">
           <div className="app-logo">
-            <img src={logo} />
+            <img src={logo} alt="chicken tikka"/>
           </div>
           <form className="login-form" action="">
             <h1>Sign In</h1>
@@ -49,7 +49,7 @@ export default class LoginPage extends React.Component {
               <CommonButton className="primary" type="submit" value="LOGIN" />
             </div>
             <span className="forgot-password">Forgot Password?</span>
-            <a className="link" href="">
+            <a className="link" href="*">
               Click Here
             </a>
           </form>
