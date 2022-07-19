@@ -1,65 +1,58 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ordersPageStyles.css";
 import HeaderBar from "../components/HeaderBar";
 import { RestaurantService } from "../services/RestaurantService";
 import OrdersView from "../components/OrdersView";
 import CartView from "../components/CartView";
-class OrdersPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurant: {},
-      cart: {
-        items: [],
-        subTotal: 0,
-        deliveryCharges: 45,
-        coupon: 90,
-        grandTotal: 0
+// import { useParams } from "react-router";
+
+const OrdersPage = (props) => {
+  const id= '66330';
+  const [restaurant, setRestaurant] = useState({});
+  const [cart, setCart] = useState({
+    items: [],
+    subTotal: 0,
+    deliveryCharges: 45,
+    coupon: 90,
+    grandTotal: 0,
+  });
+
+
+  useEffect(() => {
+    /**
+     * Fetch the restaurant details from RestaurantService and updates the component state.
+     * Sets the state to display loading indicator during data fetch from service.
+     */
+    const fetchRestaurantDetails = async (id) => {
+      let restaurantDetails = await RestaurantService.getRestaurantDetail(id);
+      if (restaurantDetails) {
+        setRestaurant(restaurantDetails);
+      } else {
+        setRestaurant(null);
       }
     };
-  }
 
-  componentDidMount() {
-    this.fetchRestaurantDetails(this.props.id);
-  }
+    fetchRestaurantDetails(id);
+  }, [id]);
 
-  /**
-   * Fetch the restaurant details from RestaurantService and updates the component state.
-   * Sets the state to display loading indicator during data fetch from service.
-   */
-  async fetchRestaurantDetails(id) {
-    this.setState({ isLoading: true });
-    let restaurantDetails = await RestaurantService.getRestaurantDetail(id);
-    if (restaurantDetails) {
-      this.setState({
-        isLoading: false,
-        restaurant: restaurantDetails,
-        error: null
-      });
-    } else {
-      this.setState({
-        isLoading: false,
-        restaurant: null,
-        error: "Restaurant detail not found!"
-      });
-    }
-  }
-
-  handleAddToCart = item => {
-    let cart = { ...this.state.cart };
+  const handleAddToCart = (item) => {
+    console.log(item);
+    let cartt = { ...cart };
 
     // If an element is already present increment otherwise add to cart
-    let itemPresent = cart.items.findIndex(element => element.id === item.id);
+    let itemPresent = cartt.items.findIndex(
+      (element) => element.id === item.id
+    );
     if (itemPresent >= 0) {
-      this.handleIncrement(item);
+      handleIncrement(item);
     } else {
       const newItem = { ...item, quantity: 1 };
-      cart.items.push(newItem);
-      this.calculateTotal(cart);
+      cartt.items.push(newItem);
+      calculateTotal(cartt);
     }
   };
 
-  calculateTotal = cart => {
+  const calculateTotal = (cart) => {
     //Calculate Totals and update
     cart.subTotal = 0;
     for (let item of cart.items) {
@@ -67,54 +60,51 @@ class OrdersPage extends Component {
     }
     cart.grandTotal = cart.subTotal + cart.deliveryCharges - cart.coupon;
     cart.grandTotal = cart.grandTotal > 0 ? cart.grandTotal : 0;
-    this.setState({ cart });
+    setCart(cart);
   };
 
-  handleIncrement = item => {
-    let cart = { ...this.state.cart };
-    let newItems = [...this.state.cart.items];
+  const handleIncrement = (item) => {
+    let cartt = { ...cart };
+    let newItems = [...cart.items];
 
     //Update the item in cart
-    newItems[newItems.findIndex(element => element.id === item.id)].quantity++;
-    cart.items = newItems;
-    this.calculateTotal(cart);
+    newItems[newItems.findIndex((element) => element.id === item.id)]
+      .quantity++;
+    cartt.items = newItems;
+    calculateTotal(cartt);
   };
 
-  handleDecrement = item => {
-    let cart = { ...this.state.cart };
-    let newItems = [...this.state.cart.items];
+  const handleDecrement = (item) => {
+    let cartt = { ...cart };
+    let newItems = [...cart.items];
 
     //Update the item in cart
     if (item.quantity !== 1) {
-      newItems[newItems.findIndex(element => element.id === item.id)]
+      newItems[newItems.findIndex((element) => element.id === item.id)]
         .quantity--;
     } else {
       newItems.splice(
-        newItems.findIndex(element => element.id === item.id),
+        newItems.findIndex((element) => element.id === item.id),
         1
       );
     }
-    cart.items = newItems;
-    this.calculateTotal(cart);
+    cartt.items = newItems;
+    calculateTotal(cartt);
   };
 
-  render() {
-    return (
-      <div className="main-container order-page">
-        <HeaderBar />
-        <div className="order">
-          <OrdersView
-            restaurant={this.state.restaurant}
-            onAddToCart={this.handleAddToCart}
-          />
-          <CartView
-            cart={this.state.cart}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-          />
-        </div>
+  return (
+    <div className="main-container order-page">
+      <HeaderBar />
+      <div className="order">
+        <OrdersView restaurant={restaurant} onAddToCart={handleAddToCart} />
+        <CartView
+          cart={cart}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
 export default OrdersPage;
