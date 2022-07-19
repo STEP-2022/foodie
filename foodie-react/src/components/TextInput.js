@@ -1,29 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/textInputStyles.css";
 
-export default class TextInput extends React.Component {
-  static propTypes = {
-    type: PropTypes.string,
-    className: PropTypes.string,
-    placeholder: PropTypes.string,
-    value: PropTypes.string,
-    onChange: PropTypes.func
-  };
+const TextInput = (props) => {
+  return (
+    <input
+      type={props.type}
+      className={props.className}
+      placeholder={props.placeholder}
+      value={props.value}
+      onChange={(event) => props.onChange(event)}
+    />
+  );
+};
 
-  // constructor() {
-  //   super();
-  // }
-
-  render() {
-    return (
-      <input
-        type={this.props.type}
-        className={this.props.className}
-        placeholder={this.props.placeholder}
-        value={this.props.value}
-        onChange={event => this.props.onChange(event)}
-      />
-    );
-  }
-}
+export default TextInput;
