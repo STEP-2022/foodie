@@ -2,28 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import "../styles/commonButtonStyles.css";
 
-export default class CommonButton extends React.Component {
-  static propTypes = {
-    type: PropTypes.string,
-    className: PropTypes.string,
-    value: PropTypes.string,
-    onClick: PropTypes.func
-  };
 
-  // constructor() {
-  //   super();
-  // }
-
-  //Pass primary class for PrimaryButton Styles
-  render() {
-    return (
-      <button
-        type={this.props.type}
-        className={this.props.className}
-        onClick={this.props.onClick}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+const CommonButton = (props) => {
+  return (
+    <button
+    type={props.type}
+    className={props.className}
+    onClick={props.onClick}>
+    {props.value}
+  </button>
+  )
 }
+
+CommonButton.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string,
+  value: PropTypes.string,
+  onClick: PropTypes.func
+}
+
+export default CommonButton;
