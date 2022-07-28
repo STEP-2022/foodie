@@ -3,6 +3,7 @@ import "../styles/restaurantListPageStyles.css";
 import HeaderBar from "../components/HeaderBar";
 import { RestaurantService } from "../services/RestaurantService";
 import RestaurantCard from "../components/RestaurantCard";
+import { Link } from "react-router-dom";
 
 const RestaurantListPage = () => {
   const [loading, setLoading] = useState(true);
@@ -37,7 +38,10 @@ const RestaurantListPage = () => {
         {data.map((res) => {
           return (
             <div key={res.id + res.name}>
-              <RestaurantCard key={res.id} restaurant={res} />
+              <Link className="link" to={`/orders/${res.id}`} >
+                <RestaurantCard key={res.id} restaurant={res} />
+              </Link>
+              
             </div>
           );
         })}

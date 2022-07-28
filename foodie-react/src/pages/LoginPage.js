@@ -3,6 +3,7 @@ import "../styles/loginPageStyles.css";
 import TextInput from "../components/TextInput";
 import CommonButton from "../components/CommonButton";
 import logo from "../resources/images/logo.png";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
@@ -35,7 +36,9 @@ const LoginPage = () => {
             />
           </div>
           <div className="form-field">
-            <CommonButton className="primary" type="submit" value="LOGIN" />
+            <Link to="/restaurantList" >
+              <CommonButton className="primary" type="submit" value="LOGIN" />
+            </Link>
           </div>
           <span className="forgot-password">Forgot Password?</span>
           <a className="link" href="*">
