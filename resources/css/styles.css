@@ -227,7 +227,9 @@ img {
 }
 .add-to-cart {
   border: 1px solid gray;
-  color: gray;
+  color: white;
+  background-color: #bd031a;
+  cursor: pointer;
   line-height: 2.2;
   width: 90px;
   font-size: 14px;
@@ -311,4 +313,7 @@ img {
   margin-top: 20px;
 }
 
+button {
+  cursor: pointer;
+}
 /* END --  CART STYLES */
