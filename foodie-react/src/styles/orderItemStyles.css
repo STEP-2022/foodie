@@ -21,7 +21,8 @@
 }
 .add-to-cart {
   border: 1px solid gray;
-  color: gray;
+  color: white;
+  background-color: #bd031a;
   line-height: 2.2;
   width: 90px;
   font-size: 14px;
@@ -30,4 +31,8 @@
 .order-items .cost {
   color: gray;
   font-size: 16px;
+}
+
+button {
+  cursor: pointer;
 }
